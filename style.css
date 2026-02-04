@@ -1,0 +1,693 @@
+/* ===== 重置和基础样式 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* 浅色主题颜色 */
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-bg: #ffffff;
+    --dark-bg: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #eaeaea;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    /* 深色主题颜色 */
+    --primary-color: #ecf0f1;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-bg: #1a1a2e;
+    --dark-bg: #16213e;
+    --text-primary: #ffffff;
+    --text-secondary: #bdc3c7;
+    --border-color: #2c3e50;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--light-bg);
+    transition: var(--transition);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== 导航栏样式 ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+[data-theme="dark"] .navbar {
+    background-color: rgba(26, 26, 46, 0.95);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.theme-btn:hover {
+    background-color: var(--border-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-primary);
+    transition: var(--transition);
+}
+
+/* ===== Hero 区域样式 ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+    background: linear-gradient(135deg, var(--light-bg) 0%, var(--dark-bg) 100%);
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-pic {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--secondary-color);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.bio {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.contact-info {
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 5px;
+    transition: var(--transition);
+}
+
+.copy-btn:hover {
+    color: var(--accent-color);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ===== 通用区域样式 ===== */
+.section {
+    padding: 100px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--primary-color);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+}
+
+/* ===== 教育背景样式 ===== */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--secondary-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 60px;
+}
+
+.timeline-date {
+    position: absolute;
+    left: -20px;
+    top: 0;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.timeline-content {
+    background-color: var(--dark-bg);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.timeline-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.degree {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.gpa {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.course-list {
+    list-style: none;
+}
+
+.course-list li {
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 20px;
+}
+
+.course-list li::before {
+    content: '•';
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+}
+
+/* ===== 项目经历样式 ===== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background-color: var(--dark-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.project-header h3 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.project-date {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+.project-desc {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tech-tag {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.project-points {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.project-points li {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 25px;
+}
+
+.project-points li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+}
+
+.project-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.project-link:hover {
+    color: var(--accent-color);
+}
+
+/* ===== 个人技能样式 ===== */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.skill-category {
+    background-color: var(--dark-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.skill-category h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+}
+
+.skill-item {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 15px;
+}
+
+.skill-name {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.skill-bar {
+    grid-column: 1 / -1;
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+}
+
+.skill-percent {
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ===== 社交卡片样式 ===== */
+.social-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+    padding: 50px;
+    border-radius: 20px;
+    color: white;
+}
+
+.social-content h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.social-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.contact-form {
+    background-color: var(--light-bg);
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.contact-form h4 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 1.3rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+/* ===== 页脚样式 ===== */
+footer {
+    background-color: var(--dark-bg);
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 992px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .contact-info {
+        justify-content: center;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .social-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--light-bg);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: var(--shadow);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .name {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .social-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero-section {
+        padding: 100px 0 50px;
+    }
+    
+    .profile-pic {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .name {
+        font-size: 2rem;
+    }
+    
+    .section {
+        padding: 60px 0;
+    }
+    
+    .project-card,
+    .skill-category,
+    .social-card {
+        padding: 20px;
+    }
+}
