@@ -186,17 +186,197 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(skillsSection);
     }
     
-    // ===== 7. 下载 PDF 功能 =====
+    // ===== 7. 下载 PDF 功能增强 =====
+const downloadBtn = document.getElementById('download-pdf');
+
+if (downloadBtn) {
+    downloadBtn.addEventListener('click', function(e) {
+        // 显示下载提示
+        showToast('正在下载简历...');
+        
+        // 可以添加下载统计（可选）
+        console.log('简历下载点击');
+        
+        // 设置一个延时，确保Toast显示
+        setTimeout(() => {
+            console.log('下载开始');
+        }, 500);
+    });
+    
+    // 检查PDF文件是否存在（可选功能）
+    checkPdfExists();
+}
+// 检查PDF文件是否存在
+function checkPdfExists() {
+    const pdfUrl = 'assets/resume.pdf';
+    
+    fetch(pdfUrl, { method: 'HEAD' })
+        .then(response => {
+            if (!response.ok) {
+                console.warn('PDF文件不存在或路径错误');
+                // 可以给用户一个提示
+                const downloadBtn = document.getElementById('download-pdf');
+                if (downloadBtn) {
+                    downloadBtn.style.opacity = '0.7';
+                    downloadBtn.title = 'PDF文件可能不存在，请检查';
+                }
+            }
+        })
+        .catch(error => {
+            console.warn('无法检查PDF文件:', error);
+        });
+}
+// 添加下载进度条效果
+function addDownloadProgress() {
+    // 创建进度条
+    const progressBar = document.createElement('div');
+    progressBar.className = 'download-progress';
+    document.body.appendChild(progressBar);
+    
+    // 监听所有下载链接
+    document.querySelectorAll('a[download]').forEach(link => {
+        link.addEventListener('click', function() {
+            // 显示进度条
+            progressBar.style.width = '30%';
+            
+            // 模拟下载进度
+            setTimeout(() => {
+                progressBar.style.width = '70%';
+            }, 300);
+            
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                
+                // 完成后隐藏
+                setTimeout(() => {
+                    progressBar.style.width = '0';
+                }, 500);
+            }, 600);
+        });
+    });
+}
+
+// 在DOM加载完成后调用
+document.addEventListener('DOMContentLoaded', function() {
+    addDownloadProgress();
+});
+// ===== PDF预览功能 =====
+function initPdfPreview() {
+    const previewBtn = document.getElementById('preview-pdf');
+    const previewModal = document.getElementById('pdf-preview-modal');
+    const pdfViewer = document.getElementById('pdf-viewer');
+    const modalClose = document.querySelector('.modal-close');
+    const previewDownload = document.getElementById('preview-download');
+    const previewPrint = document.getElementById('preview-print');
+    
+    if (!previewBtn || !previewModal) return;
+    
+    // 打开预览
+    previewBtn.addEventListener('click', function() {
+        // 设置PDF查看器源
+        pdfViewer.src = 'assets/resume.pdf';
+        
+        // 显示模态框
+        previewModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
+    });
+    
+    // 关闭预览
+    modalClose.addEventListener('click', function() {
+        previewModal.classList.remove('active');
+        pdfViewer.src = ''; // 清空iframe
+        document.body.style.overflow = 'auto';
+    });
+    
+    // 点击模态框背景关闭
+    previewModal.addEventListener('click', function(e) {
+        if (e.target === previewModal) {
+            previewModal.classList.remove('active');
+            pdfViewer.src = '';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // 预览中的下载按钮
+    previewDownload.addEventListener('click', function() {
+        const link = document.createElement('a');
+        link.href = 'assets/resume.pdf';
+        link.download = '你的姓名_个人简历.pdf';
+        link.click();
+        showToast('开始下载简历...');
+    });
+    
+    // 预览中的打印按钮
+    previewPrint.addEventListener('click', function() {
+        const printWindow = window.open('assets/resume.pdf', '_blank');
+        if (printWindow) {
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }
+    });
+}
+
+// 在DOM加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    initPdfPreview();
+});
+// 下载统计功能
+function trackDownload() {
     const downloadBtn = document.getElementById('download-pdf');
     
-    downloadBtn.addEventListener('click', function() {
-        // 这里可以使用 jsPDF 库来生成 PDF
-        // 但为了简化，我们先创建一个提示
-        showToast('PDF生成功能需要引入jsPDF库');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function() {
+            // 获取当前日期
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            
+            // 从localStorage获取下载次数
+            let downloadStats = localStorage.getItem('downloadStats');
+            downloadStats = downloadStats ? JSON.parse(downloadStats) : {};
+            
+            // 更新统计
+            if (downloadStats[dateStr]) {
+                downloadStats[dateStr]++;
+            } else {
+                downloadStats[dateStr] = 1;
+            }
+            
+            // 保存回localStorage
+            localStorage.setItem('downloadStats', JSON.stringify(downloadStats));
+            
+            // 显示总下载次数
+            const totalDownloads = Object.values(downloadStats).reduce((a, b) => a + b, 0);
+            console.log(`总下载次数: ${totalDownloads}`);
+            
+            // 你也可以发送到服务器（需要后端支持）
+            // sendDownloadAnalytics(dateStr);
+        });
+    }
+}
+
+// 在页面加载时显示总下载次数（可选）
+function showDownloadCount() {
+    let downloadStats = localStorage.getItem('downloadStats');
+    if (downloadStats) {
+        downloadStats = JSON.parse(downloadStats);
+        const totalDownloads = Object.values(downloadStats).reduce((a, b) => a + b, 0);
         
-        // 如果你的简历已经是PDF格式，可以直接链接到文件
-        // window.open('path/to/your-resume.pdf', '_blank');
-    });
+        // 在页脚显示（可选）
+        const footer = document.querySelector('footer .container');
+        if (footer) {
+            const countElement = document.createElement('p');
+            countElement.innerHTML = `<small>简历已被下载 ${totalDownloads} 次</small>`;
+            footer.appendChild(countElement);
+        }
+    }
+}
+
+// 在DOM加载完成后调用
+document.addEventListener('DOMContentLoaded', function() {
+    trackDownload();
+    showDownloadCount();
+});
     
     // ===== 8. 联系表单处理 =====
     const contactForm = document.getElementById('contactForm');

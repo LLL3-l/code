@@ -66,9 +66,32 @@
                     <div class="hero-buttons">
                         <a href="#projects" class="btn btn-primary">查看项目</a>
                         <a href="#contact" class="btn btn-secondary">联系我</a>
-                        <button id="download-pdf" class="btn btn-outline">
+                        <a href="assets/resume.pdf" download="你的姓名_个人简历.pdf" class="btn btn-outline" id="download-pdf">
                             <i class="fas fa-download"></i> 下载简历
-                        </button>
+                        </a>
+                        <!-- 在下载按钮旁边显示文件大小 -->
+<a href="assets/resume.pdf" download="张三_个人简历.pdf" class="btn btn-outline" id="download-pdf">
+    <i class="fas fa-download"></i> 下载简历
+    <span class="file-size">(约 1 MB)</span>
+</a>
+<!--
+   添加下拉菜单支持多种格式 
+<div class="download-dropdown">
+    <button class="btn btn-outline">
+        <i class="fas fa-download"></i> 下载简历
+    </button>
+    <div class="dropdown-menu">
+        <a href="assets/resume.pdf" download="张三_简历.pdf">
+            <i class="far fa-file-pdf"></i> PDF格式
+        </a>
+        <a href="assets/resume.docx" download="张三_简历.docx">
+            <i class="far fa-file-word"></i> Word格式
+        </a>
+        <a href="assets/resume.txt" download="张三_简历.txt">
+            <i class="far fa-file-alt"></i> 纯文本格式
+        </a>
+    </div>
+</div>-->
                     </div>
                 </div>
             </div>
@@ -296,5 +319,30 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- PDF预览模态框 -->
+<div id="pdf-preview-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>简历预览</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <iframe id="pdf-viewer" src="" frameborder="0"></iframe>
+            <div class="preview-actions">
+                <button id="preview-download" class="btn btn-primary">
+                    <i class="fas fa-download"></i> 直接下载
+                </button>
+                <button id="preview-print" class="btn btn-secondary">
+                    <i class="fas fa-print"></i> 打印简历
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 预览按钮（可选） -->
+<button id="preview-pdf" class="btn btn-outline" style="margin-left: 10px;">
+    <i class="fas fa-eye"></i> 预览简历
+</button>
 </body>
 </html>
