@@ -422,4 +422,84 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.classList.remove('active');
         }
     });
+    
+// ===== 地址地图功能（优化版）=====
+(function initAddressMap() {
+    console.log('📍 初始化地址地图功能');
+    
+    // 确保页面加载完成
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    
+    function init() {
+        console.log('✅ 绑定地址点击事件');
+        
+        // 使用事件委托，处理所有地址点击
+        document.addEventListener('click', function(e) {
+            // 点击地址项
+            const addressItem = e.target.closest('.address-item');
+            if (addressItem && !e.target.closest('.location-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const addressSpan = addressItem.querySelector('.address-text');
+                if (addressSpan) {
+                    openAddressInMap(addressSpan.textContent.trim());
+                }
+                return;
+            }
+            
+            // 点击定位按钮
+            const locationBtn = e.target.closest('.location-btn');
+            if (locationBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const addressItem = locationBtn.closest('.address-item');
+                if (addressItem) {
+                    const addressSpan = addressItem.querySelector('.address-text');
+                    if (addressSpan) {
+                        openAddressInMap(addressSpan.textContent.trim());
+                    }
+                }
+            }
+        });
+        
+        // 添加视觉反馈
+        const style = document.createElement('style');
+        style.textContent = `
+            .address-item { cursor: pointer !important; }
+            .address-item:hover { opacity: 0.8; }
+            .location-btn { cursor: pointer !important; }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // 打开地址地图（简洁版）
+    function openAddressInMap(address) {
+        if (!address || address.trim() === '') return;
+        
+        console.log(`🗺️ 打开地图: ${address}`);
+        
+        // 构建地图URL
+        const isChineseUser = navigator.language.includes('zh') || /China|CN/i.test(navigator.userAgent);
+        const service = isChineseUser ? 'baidu' : 'google';
+        const encodedAddress = encodeURIComponent(address);
+        const mapUrl = service === 'baidu' 
+            ? `https://map.baidu.com/search/${encodedAddress}`
+            : `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+        
+        // 直接打开，用户已经允许了弹出窗口
+        window.open(mapUrl, '_blank');
+    }
+    
+    // 暴露函数到全局，方便调试
+    window.openAddressInMap = openAddressInMap;
+})();
+
+
+
 });

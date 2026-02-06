@@ -193,6 +193,7 @@ body {
     color: var(--text-secondary);
 }
 
+
 .copy-btn {
     background: none;
     border: none;
@@ -817,4 +818,45 @@ footer p {
     opacity: 0.8;
     margin-left: 5px;
 }
+
+/* 地址项样式 */
+.address-item {
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.address-item:hover {
+    color: var(--secondary-color);
+}
+
+.address-item:hover .fa-map-marker-alt {
+    transform: scale(1.1);
+    color: var(--accent-color);
+}
+
+.address-text {
+    flex: 1;
+}
+
+.location-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: var(--transition);
+    opacity: 0.7;
+}
+
+.location-btn:hover {
+    opacity: 1;
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--secondary-color);
+}
+
+
 }
